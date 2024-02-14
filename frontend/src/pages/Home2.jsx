@@ -6,7 +6,7 @@ function Home2() {
     const hello=()=>{
         navigate("/login")
     }
-    const color = localStorage.getItem('site');
+    const color = localStorage.getItem('sitecontent');
     console.log(color)
     const isDarkMode = color === 'dark'
     const gradientColor = isDarkMode
@@ -25,6 +25,7 @@ function Home2() {
                 <h1 className="mt-20"><h1 className="mt-5">“Education is the passport to the future, </h1>
                 <h1 className="mt-5">for tomorrow belongs to those who prepare for </h1>
                 <h1 className="mt-5">it today.” – Malcolm X</h1></h1>
+                <h1 className="mt-5">{color}</h1>
                 </div>
                 <div className="mt-20">
                 <button onClick={hello} class=" relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-black dark:text-black focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
@@ -36,12 +37,6 @@ Get started
             </div>
             <div className="w-1/2 h-auto bg-orange-400 rounded-bl-full">
                 <div className="h-full">
-            {/* <img
-            className="w-1/2 h-1/2 mt-20 object-cover"
-            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7tW6u2jiXsWP19KyXSbhUv6vUpgEVnXSlRg&usqp=CAU"
-         
-            
-          /> */}
           </div>
             </div>
         </div>

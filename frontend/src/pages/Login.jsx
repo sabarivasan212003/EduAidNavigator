@@ -22,14 +22,18 @@ function Login() {
     //  }
     //  else{
       const data = { email, password };
-    
+      localStorage.setItem('email1',data.email);
+      const kill1=localStorage.getItem('email1');
       axios
         .post('http://localhost:8081/api/v1/auth/authenticate', data)
         .then((res) => {
+          console.log(kill1);
+          // localStorage.setItem('token',res.data.token)
           if (res.data != null) {
             // toast.success('Successfully logged in');
-            console.log(data.email)
-             if(data.email==="admin@gmail.com"){
+              console.log(kill1)
+            
+             if(kill1==="admin@gmail.com"){
               
               navigate('/ad');
              }

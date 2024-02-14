@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { useState,useEffect } from 'react';
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
@@ -15,9 +15,12 @@ function Chart() {
     const [enquiries2, setEnquiries2] = useState([]);
   const r=localStorage.getItem('name');
   const check=localStorage.getItem('id')
+//   const token=localStorage.getItem('token');
+//   console.log(token)
   useEffect(() => {
-    const fetchData = async () => {
-      try {
+      const fetchData = async () => {
+          try {
+        //   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         console.log(check);
         const response = await fetch(`http://localhost:8081/getenroll/`+check);
         const data = await response.json();
@@ -36,6 +39,7 @@ function Chart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const response = await fetch("http://localhost:8081/getcourse");
         const data = await response.json();
         // const color = localStorage.getItem("email");

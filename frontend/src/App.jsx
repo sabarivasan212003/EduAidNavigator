@@ -31,13 +31,17 @@ import AddStaff from "./pages/Addstaff";
 import AdminDashboard from "./pages/Admindashboard";
 import Adminadd from "./pages/Adminaddcourse";
 import Settings from "./pages/settings";
-
+import Error from "./pages/Error";
 function App() {
+  const rent=localStorage.getItem('email1');
+
   return ( 
     <Router>
          {/* <Navbar /> */}
+
           <Routes>
             {/* <Route path="/" element={<Home />}/> */}
+            <Route path="/ad" element={<AdminDashboard link={AdminviewId}/>}/>
             <Route path="/" element={<Home2 />}/>
             <Route path="/about" element={<About />}/>
             <Route path="/contact" element={<Contact />}/>
@@ -49,19 +53,27 @@ function App() {
             <Route path="/register" element={<Register />}/>
             <Route path="/admin" element={<Admin />}/>
             <Route path="/student" element={<Student />}/>
-            <Route path="/sp" element={<StudentProfile />}/>
-            <Route path="/vc" element={<Viewcourses link={coursesId} />}/>
-            <Route path="/profile" element={<Profile />}/>
-            <Route path="/sidebar" element={<Sidebar />}/>
-            <Route path="/ac" element={<AddEnquiry />}/>
-            <Route path="/ve" element={<ViewEnquiry link={viewId}/>}/>
+            <Route path="*" element={<Error />}/>
+            
+            {rent==="admin@gmail.com"?(
+              <>
             <Route path="/ave" element={<AdminViewEnquiry link={AdminviewId}/>}/>
-            <Route path="/ad" element={<AdminDashboard link={AdminviewId}/>}/>
             <Route path="/avc" element={<AdminViewcourses/>}/>
-            <Route path="/chart" element={<Chart/>}/>
             <Route path="/as" element={<AddStaff/>}/>
             <Route path="/add" element={<Adminadd/>}/>
             <Route path="/set" element={<Settings/>}/>
+            </>
+            ):(
+              <>
+            <Route path="/sp" element={<StudentProfile />}/>
+            <Route path="/profile" element={<Profile />}/>
+            <Route path="/sidebar" element={<Sidebar />}/>
+            <Route path="/vc" element={<Viewcourses link={coursesId} />}/>
+            <Route path="/ac" element={<AddEnquiry />}/>
+            <Route path="/ve" element={<ViewEnquiry link={viewId}/>}/>
+            <Route path="/chart" element={<Chart/>}/>
+            </>
+            )}
             {/* <Route path="/dash" element={<Dashboard />}/> */}
             {/* <Route path="/view" element={<Viewcourses />}/> */}
 
