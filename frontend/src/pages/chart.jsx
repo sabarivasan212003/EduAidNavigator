@@ -12,21 +12,42 @@ import { student } from '../constants/sideConstants';
 import axios from 'axios';
 function Chart() {
     const [enquiries, setEnquiries] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await fetch("http://localhost:8081/getenroll");
-            const data = await response.json();
-            // const color = localStorage.getItem("email");
-            console.log(data);
-            setEnquiries(data);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
-    
-        fetchData();
-      }, []);
+    const [enquiries2, setEnquiries2] = useState([]);
+  const r=localStorage.getItem('name');
+  const check=localStorage.getItem('id')
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log(check);
+        const response = await fetch(`http://localhost:8081/getenroll/`+check);
+        const data = await response.json();
+        // const color = localStorage.getItem('email');
+        // console.log(color);
+        console.log(data);
+        setEnquiries(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/getcourse");
+        const data = await response.json();
+        // const color = localStorage.getItem("email");
+        console.log(data);
+        setEnquiries2(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
     const data = [
         {
         //   name: 'Monday',
@@ -87,22 +108,22 @@ function Chart() {
                     <h3>Totalcourse</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>30</h1>
+                <h1>{enquiries2.length}</h1>
             </div>
             <div className='card  ml-20 w-38'>
                 <div className='card-inner '>
                     <h3>Enrolled courses</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>12</h1>
+                <h1>{enquiries.length}</h1>
             </div>
-            <div className='card ml-20 w-38'>
-                <div className='card-inner'>
+            {/* <div className='card ml-20 w-38'>
+                {/* <div className='card-inner'>
                     <h3>Course completed</h3>
                     <BsPeopleFill className='card_icon'/>
-                </div>
-                <h1>33</h1>
-            </div>
+                </div> */}
+                {/* <h1>33</h1> */}
+            {/* </div> */} 
             {/* <div className='card'>
                 <div className='card-inner'>
                     <h3>ALERTS</h3>

@@ -1,7 +1,8 @@
 // import { Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 // import React, { useState } from 'react';
+import axios from "axios";
 
 import {
    Button,
@@ -21,16 +22,24 @@ import {
  } from '@chakra-ui/react';
 function Sidebar({links}) {
 const navigate=useNavigate()
+const email = localStorage.getItem("email");
+const [user, setUser] = useState([]);
 const [isEditing, setIsEditing] = useState(false);
-const [user, setUser] = useState({
+useEffect(() => {
+  axios.get(`http://localhost:8081/user/getSignIn/${email}`).then((response) => {
+    setUser(response.data);
+    console.log(response.data, email);
+  });
+}, []);
+// const [user, setUser] = useState({
  
-  companyname:"Zoho" ,
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
-  role:'adimin'
+//   companyname:"Zoho" ,
+//   firstName: 'John',
+//   lastName: 'Doe',
+//   email: 'john.doe@example.com',
+//   role:'adimin'
   
-});
+// });
 
 const handleInputChange = (e) => {
   const { name, value } = e.target;
@@ -149,17 +158,17 @@ const handleSaveClick = () => {
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
-            <Avatar name={user.firstName} size="xl" />
+            <Avatar name={user.user_name} size="xl" />
 
               <h1></h1>
               <br></br>
               <FormLabel>
-                First name : <b>{user.firstName}</b>{' '}
+                Name : <b>{user.user_name}</b>{' '}
               </FormLabel>
               <h1></h1>
-              <FormLabel>
+              {/* <FormLabel>
                 Last name : <b>{user.lastName}</b>{' '}
-              </FormLabel>
+              </FormLabel> */}
               <FormLabel>
                 Last name : <b>{user.email}</b>{' '}
               </FormLabel>
@@ -167,70 +176,7 @@ const handleSaveClick = () => {
                 College :{' '}
                 <b>Sri krishna college of engineering and technology</b>{' '}
               </FormLabel>
-            </FormControl>
-            {isEditing ? (
-              <div className="edit-form">
-                {/* Add form fields for editing user profile */}
-                {/* <label>
-                  Company Name:
-                  <Input
-                    type="text"
-                    name="companyname"
-                    value={user.companyname}
-                    onChange={handleInputChange}
-                  />
-                </label> */}
-                <br></br>
-                <label>
-                  FirstName:
-                  <br></br>
-                  <Input
-                    type="text"
-                    name="firstName"
-                    value={user.firstName}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <br></br>
-                <label>
-                  LastName:
-                  <br></br>
-                  <Input
-                    type="text"
-                    name="lastName"
-                    value={user.lastName}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <br></br>
-                
-                <label>
-                  Email:
-                  <br></br>
-                  <Input
-                    type="email"
-                    name="email"
-                    value={user.email}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <br></br>
-                <label>
-                  role:
-                  <br></br>
-                  <Input
-                     type="text"
-                    name="role"
-                    value={user.role}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                {/* Add more form fields as needed */}
-                <Button onClick={handleSaveClick}>Save</Button>
-              </div>
-            ) : (
-              <Button onClick={handleEditClick}>Edit</Button>
-            )}
+            </FormControl>       
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
@@ -238,7 +184,7 @@ const handleSaveClick = () => {
         </ModalContent>
       </Modal>
       </div>
-      </div>
+      </div>  
 </>
     );
 }

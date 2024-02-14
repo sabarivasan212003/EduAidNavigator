@@ -1,11 +1,13 @@
 package com.example.edu_aid.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 // import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.edu_aid.Model.EnquiryModel;
 import com.example.edu_aid.Model.EnrolledcourseModel;
 import com.example.edu_aid.Service.EnrolledService;
 
@@ -35,10 +38,10 @@ public class EnrolledController{
 	    ServiceImp.saveSignInDetails(sign);
         return sign;
 	}
-	// @GetMapping("/getSignIn")
-	// public UserModel findStudent(@RequestParam int id){
-	// 	return ServiceImp.findSignInDetails(id);
-	// }
+	@GetMapping("/getenroll/{id}")
+    public List<EnrolledcourseModel> findStudent(@PathVariable int id){
+        return ServiceImp.findSignInDetails(id);
+    }
 	@GetMapping("/getenroll")
 	public List<EnrolledcourseModel >findAllSignDetails(){
 		return ServiceImp.findAllSignInDetails();

@@ -1,6 +1,7 @@
 package com.example.edu_aid.Service;
 import org.springframework.stereotype.Service;
 
+import com.example.edu_aid.Model.EnquiryModel;
 import com.example.edu_aid.Model.EnrolledcourseModel;
 // import com.example.edu_aid.Model.UserModel;
 // import com.example.edu_aid.Model.EnquiryModel;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 // import firstsample.demo.Model.UserModel;
 // import firstsample.demo.Repository.UserRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnrolledService{
@@ -34,17 +36,15 @@ public class EnrolledService{
 		// TODO Auto-generated method stub
 		return signRepo.save(student);
 	}
-
+	
 	public List<EnrolledcourseModel> findAllSignInDetails() {
 		// TODO Auto-generated method stub
 		return (List<EnrolledcourseModel>)signRepo.findAll();
 	}
 
-	// public User findSignInDetails(int roll) {
-	// 	// TODO Auto-generated method stub
-	// 	return signRepo.findById(roll);
-	// }
-
+   public List<EnrolledcourseModel> findSignInDetails(int userId) {
+        return signRepo.findByUser_user_id(userId);
+    }
 	public void deleteSignInDetails(int roll) {
 		// TODO Auto-generated method stub
 		signRepo.deleteById((long) roll);

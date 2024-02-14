@@ -27,6 +27,7 @@ import {
 } from "@chakra-ui/react";
 
 function Viewcourses() {
+  
   const [enquiries, setEnquiries] = useState([]);
   const email = localStorage.getItem("email");
   const [coursed, setCoursed] = useState({});

@@ -1,6 +1,7 @@
 import React from 'react'
 import { AdminLinks, student } from "../constants/sideConstants";
-import { useState,useRef } from "react";
+import { useState,useRef,useEffect } from "react";
+import axios from 'axios';
 // import { AdminLinks, student } from "../constants/sideConstants";
 import {
     Card,
@@ -43,12 +44,69 @@ import Sidebar from './sidebar';
 // import { student } from '../constants/sideConstants';    
 
 function AdminDashboard() {
+    const [enquiries, setEnquiries] = useState([]);
+    const [enquiries2, setEnquiries2] = useState([]);
+    const [enquiries3, setEnquiries3] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const initialRef = useRef();
     const finalRef = useRef();
     
     const onOpen = () => setIsOpen(true);
     const onClose = () => setIsOpen(false);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            // console.log(check);
+            const response = await fetch("http://localhost:8081/getenroll");
+            const data = await response.json();
+            // const color = localStorage.getItem('email');
+            // console.log(color);
+            console.log(data);
+            setEnquiries3(data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+      
+      useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch("http://localhost:8081/getcourse");
+            const data = await response.json();
+            // const color = localStorage.getItem("email");
+            console.log(data);
+            setEnquiries2(data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+    useEffect(() => {
+        axios.get('http://localhost:8081/getcourse').then((response) => {
+          setEnquiries2(response.data);
+        console.log(response.data);
+        });
+      }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch("http://localhost:8081/getcourse");
+            const data = await response.json();
+            // const color = localStorage.getItem("email");
+            console.log(data);
+            setEnquiries(data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+    
+        fetchData();
+      }, []);
     const data = [
         {
           name: 'Monday',
@@ -109,14 +167,14 @@ function AdminDashboard() {
                     <h3>Totalcourse</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>30</h1>
+                <h1>{enquiries.length}</h1>
             </div>
             <div className='card   '  style={{width:'45%'}}>
                 <div className='card-inner '>
                     <h3>Total Enrolled courses</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>12</h1>
+                <h1>{enquiries2.length}</h1>
             </div>
             {/* <div className='card ml-20 w-38'>
                 {/* <div className='card-inner'>
@@ -258,111 +316,50 @@ function AdminDashboard() {
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Course name
+                    Name
                 </th>
                 {/* <th scope="col" class="px-6 py-3">
                     Color
                 </th> */}
                 <th scope="col" class="px-6 py-3">
-                    Category
+                    Date
                 </th>
                 {/* <th scope="col" class="px-6 py-3">
                     Price
                 </th> */}
                 <th scope="col" class="px-6 py-3">
-                    Action
+                    CourseName
                 </th>
             </tr>
         </thead>
+                {enquiries3.map((enq) => (
         <tbody>
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   Java
+                {enq.user.user_name}
+                
                 </th>
                 {/* <td class="px-6 py-4">
                     Silver
                 </td> */}
                 <td class="px-6 py-4">
-                    5
+                    {enq.date}
                 </td>
                 {/* <td class="px-6 py-4">
                     $2999
                 </td> */}
                 <td class="px-6 py-4">
                     <button>
-                    <a href="#" onClick={onOpen} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">check</a>
+                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{enq.courses.course_name}</a>
                     </button>
                 </td>
             </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  javascript
-                </th>
-                {/* <td class="px-6 py-4">
-                    White
-                </td> */}
-                <td class="px-6 py-4">
-                    15
-                </td>
-                {/* <td class="px-6 py-4">
-                    $1999
-                </td> */}
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">check</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    springboot
-                </th>
-                {/* <td class="px-6 py-4">
-                    Black
-                </td> */}
-                <td class="px-6 py-4">
-                    12
-                </td>
-                {/* <td class="px-6 py-4">
-                    $99
-                </td> */}
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">check</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    react
-                </th>
-                {/* <td class="px-6 py-4">
-                    Gray
-                </td> */}
-                <td class="px-6 py-4">
-                    6
-                </td>
-                {/* <td class="px-6 py-4">
-                    $799
-                </td> */}
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">check</a>
-                </td>
-            </tr>
-            {/* <tr>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple Watch 5
-                </th>
-                {/* <td class="px-6 py-4">
-                    Red
-                </td> */}
-                {/* <td class="px-6 py-4">
-                    Wearables
-                </td>
-                {/* <td class="px-6 py-4">
-                    $999
-                </td> */}
-                {/* <td class="px-6 py-4"> */}
-                    {/* <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> */}
-                {/* </td>  */}
-            {/* </tr> */} 
+          
+       
+          
+            
         </tbody>
+        ))}
     </table>
 </div>
 

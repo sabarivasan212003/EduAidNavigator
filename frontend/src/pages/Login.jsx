@@ -17,10 +17,10 @@ function Login() {
         toast.error('Please fill in all fields');
         return;
       }
-     if(email==="admin@gmail.com"){
-      navigate("/ad")
-     }
-     else{
+    //  if(email==="admin@gmail.com"){
+    //   navigate("/ad")
+    //  }
+    //  else{
       const data = { email, password };
     
       axios
@@ -28,9 +28,14 @@ function Login() {
         .then((res) => {
           if (res.data != null) {
             // toast.success('Successfully logged in');
-            console.log(res.data.email)
+            console.log(data.email)
+             if(data.email==="admin@gmail.com"){
               
+              navigate('/ad');
+             }
+             else{
               navigate('/chart');
+             }
             
           } else {
             toast.error('Invalid credentials');
@@ -40,7 +45,7 @@ function Login() {
           console.error(error);
           toast.error('An error occurred. Please try again later.');
         });
-      }
+      // }
     };
     
     return (  

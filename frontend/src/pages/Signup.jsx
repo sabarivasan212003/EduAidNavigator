@@ -46,11 +46,11 @@ function Signup() {
             const idResponse = await axios.get(`http://localhost:8081/user/getSignIn/${formData.email}`);
 
             console.log(idResponse);
+            navigate('/login');
             localStorage.setItem('id', idResponse.data.user_id);
             localStorage.setItem('email', idResponse.data.email);
             localStorage.setName('name',idResponse.data.user_name);
             // console.log(idResponse.data);
-            navigate('/login');
         } catch (error) {
             console.error(error);
         }

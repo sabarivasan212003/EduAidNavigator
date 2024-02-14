@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.edu_aid.Model.EnquiryModel;
+import com.example.edu_aid.Model.EnrolledcourseModel;
 import com.example.edu_aid.Service.EnquiryService;
 
 // import com.example.edu_aid.Model.CoursesModel;
@@ -37,6 +39,11 @@ public class EnquiryController{
 	// public UserModel findStudent(@RequestParam int id){
 	// 	return ServiceImp.findSignInDetails(id);
 	// }
+	@CrossOrigin(origins = "http://localhost:5173")
+	@GetMapping("/getSignIn/{id}")
+    public List<EnquiryModel> findStudent(@PathVariable int id){
+        return ServiceImp.findSignInDetails(id);
+    }
 	@GetMapping("admin/getenq")
 	public List<EnquiryModel >findAllSignDetails(){
 		return ServiceImp.findAllSignInDetails();
@@ -45,6 +52,7 @@ public class EnquiryController{
 	public EnquiryModel updateSignInDetails(@RequestBody EnquiryModel sign) {
 		return ServiceImp.updateSignInDetails(sign);
 	}
+	
 	@DeleteMapping("admin/deleteenq")
 	public String deleteSignInDetails(@RequestParam int id) 
 	{

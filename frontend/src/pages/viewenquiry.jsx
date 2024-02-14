@@ -5,10 +5,12 @@ import { Card,Image,Stack,CardBody,Heading,Text,CardFooter,Button, SimpleGrid, A
 function ViewEnquiry() {
   const [enquiries, setEnquiries] = useState([]);
   const r=localStorage.getItem('name');
+  const check=localStorage.getItem('id')
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8081/admin/getenq");
+        console.log(check);
+        const response = await fetch(`http://localhost:8081/getSignIn/`+check);
         const data = await response.json();
         // const color = localStorage.getItem('email');
         // console.log(color);
@@ -57,6 +59,7 @@ function ViewEnquiry() {
            </bold>
          </Text>
          <Heading size='md'>{link.description}</Heading>
+         <Heading size='md'>Reply:{link.reply}</Heading>
    
          
          <Text>

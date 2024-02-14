@@ -2,6 +2,7 @@ package com.example.edu_aid.Service;
 import org.springframework.stereotype.Service;
 
 import com.example.edu_aid.Model.EnquiryModel;
+import com.example.edu_aid.Model.EnrolledcourseModel;
 import com.example.edu_aid.Repository.EnquiryRepository;
 
 // import com.example.edu_aid.Model.CoursesModel;
@@ -27,6 +28,9 @@ public class EnquiryService{
 		// TODO Auto-generated method stub
 		return signRepo.save(student);
 	}
+  public List<EnquiryModel> findSignInDetails(int userId) {
+        return signRepo.findByUser_user_id(userId);
+    }
 
 	public List<EnquiryModel> findAllSignInDetails() {
 		// TODO Auto-generated method stub
