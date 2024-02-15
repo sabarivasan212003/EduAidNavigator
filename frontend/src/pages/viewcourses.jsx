@@ -31,6 +31,7 @@ function Viewcourses() {
   const [enquiries, setEnquiries] = useState([]);
   const email = localStorage.getItem("email");
   const [coursed, setCoursed] = useState({});
+  const [enrolledCourse,setEnrolledCourses]=useState([]);
   const [user, setUser] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const currentDate = new Date();
@@ -46,7 +47,12 @@ const dateString = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0'
     user: null,
     courses: null,
   });
-
+  useEffect(() => {
+    
+    axios.get('http://localhost:8081/getenroll').then((response) => {
+      setEnrolledCourses(response.data);
+    });
+  }, []);
   useEffect(() => {
     axios.get(`http://localhost:8081/user/getSignIn/${email}`).then((response) => {
       setUser(response.data);
@@ -106,6 +112,7 @@ const dateString = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0'
         <div>
           <SimpleGrid spacing={10} marginLeft="72" columns={[1, 2]}>
             {enquiries.map((enq) => (
+              !enrolledCourse.some(enrolledCourse => enrolledCourse.courses.course_id === enq.course_id) && (
               <div className="ml-62 mt-10">
                 <Card
                   direction={{ base: "column" }}
@@ -172,7 +179,7 @@ const dateString = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0'
                   </Stack>
                 </Card>
               </div>
-            ))}
+            )))}
           </SimpleGrid>
         </div>
       </div>

@@ -174,7 +174,7 @@ function AdminDashboard() {
                     <h3>Total Enrolled courses</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1>{enquiries2.length}</h1>
+                <h1>{enquiries3.length}</h1>
             </div>
             {/* <div className='card ml-20 w-38'>
                 {/* <div className='card-inner'>
